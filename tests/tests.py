@@ -3,8 +3,8 @@ import bhs_book
 
 
 class BookTest(unittest.TestCase):
-    def test_id_is_an_integer(self):
-        self.assertTrue(isinstance(bhs_book.get_story_ids(), int))
+    def test_story_ids_exist(self):
+        self.assertTrue(len(bhs_book.get_story_ids()) > 0)
 
 
 if __name__ == "__main__":
