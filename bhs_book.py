@@ -24,7 +24,7 @@ class BhsBook(epub.EpubBook):
             SELECT post_title, post_content from wp_posts where "ID" = {story_id};
             """
         )
-        return cur.fetchall()
+        return cur.fetchall()[0]
 
 
 def main():
@@ -36,8 +36,8 @@ def main():
     story_ids = [27]
     connection = new_book.connect_to_db()
     for story_id in story_ids:
-        story = new_book.get_story(story_id, connection)
-        print(story)
+        data = new_book.get_story(story_id, connection)
+        print(data)
     return
 
 
