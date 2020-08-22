@@ -29,7 +29,8 @@ class BhsBook(epub.EpubBook):
         return data
 
     def write_html(self, title, story):
-        with open(f"/tmp/{title}.html", "w") as f:
+        path = f"/tmp/{title}.html"
+        with open(path, "w") as f:
             body = f"""
                 <!DOCTYPE html>
                         <html lang="en">
@@ -41,7 +42,7 @@ class BhsBook(epub.EpubBook):
                     </html>
             """
             f.write(body)
-        return
+        return path
 
 
 def main():
