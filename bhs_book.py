@@ -28,6 +28,15 @@ class BhsBook(epub.EpubBook):
         cur.close()
         return data
 
+    def clean_story(self, story):
+        # subs = {"<!--More-->": "</p><p>", "\\\r\\\n\\\r\\\n": "</p><p>"}
+        cleaned_story = f"""
+            <p>{story}</p>
+            """.replace(
+            "<!--More-->", "</p><p>"
+        )
+        return cleaned_story
+
     def write_html(self, title, story):
         path = f"/tmp/{title}.html"
         with open(path, "w") as f:
@@ -55,7 +64,8 @@ def main():
     connection = new_book.connect_to_db()
     for story_id in story_ids:
         data = new_book.get_story(story_id, connection)
-        new_book.write_html(data[0], data[1])
+        cleaned_story = new_book.clean_story(data[1])
+        new_book.write_html(data[0], cleaned_story)
     connection.close()
     return
 
