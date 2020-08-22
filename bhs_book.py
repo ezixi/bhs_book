@@ -29,6 +29,18 @@ class BhsBook(epub.EpubBook):
         return data
 
     def write_html(self, title, story):
+        with open(f"/tmp/{title}.html", "w") as f:
+            body = f"""
+                <!DOCTYPE html>
+                        <html lang="en">
+                        <head></head>
+                        <body>
+                            <h1>{title}</h1>
+                            {story}
+                        </body>
+                    </html>
+            """
+            f.write(body)
         return
 
 
@@ -42,7 +54,7 @@ def main():
     connection = new_book.connect_to_db()
     for story_id in story_ids:
         data = new_book.get_story(story_id, connection)
-        print(data)
+        new_book.write_html(data[0], data[1])
     connection.close()
     return
 
