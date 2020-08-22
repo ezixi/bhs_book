@@ -41,7 +41,7 @@ class BhsBook(epub.EpubBook):
         path = f"/tmp/{title}.html"
         with open(path, "w") as f:
             body = f"""
-                <!DOCTYPE html>
+                <!doctype html>
                         <html lang="en">
                         <head></head>
                         <body>

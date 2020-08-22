@@ -21,7 +21,8 @@ class BookTest(unittest.TestCase):
 
     def test_copy_is_valid_html(self):
         html5parser = html5lib.HTMLParser(strict=True)
-        self.assertTrue(html5parser.parse(self.sample_html))
+        with open(self.sample_html, "r") as html_file:
+            self.assertTrue(html5parser.parse(html_file))
 
 
 if __name__ == "__main__":
