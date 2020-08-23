@@ -1,5 +1,6 @@
 from ebooklib import epub
 import psycopg2
+import re
 import local_settings
 
 
@@ -28,13 +29,9 @@ class BhsBook(epub.EpubBook):
         cur.close()
         return data
 
-    def clean_story(self, story):
-        # subs = {"<!--More-->": "</p><p>", "\\\r\\\n\\\r\\\n": "</p><p>"}
-        cleaned_story = f"""
-            <p>{story}</p>
-            """.replace(
-            "<!--More-->", "</p><p>"
-        )
+    def clean_story(self, story, replacement_rules):
+        for error, replacement in replacement_rules.items():
+            cleaned_story = re.sub(error, replacement, story)
         return cleaned_story
 
     def write_html(self, title, story):
@@ -46,7 +43,7 @@ class BhsBook(epub.EpubBook):
                         <head></head>
                         <body>
                             <h1>{title}</h1>
-                            {story}
+                            <p>{story}</p>
                         </body>
                     </html>
             """
