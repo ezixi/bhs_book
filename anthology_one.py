@@ -8,7 +8,10 @@ def main():
         author="Martin Bell",
     )
 
-    replacement_rules = {r"\<\!\-*\w*\-*\>|\\\\r\\\\n": "</p><p>"}
+    replacement_rules = {
+        r"\<\!\-*\w*\-*\>|\\\\r\\\\n": "</p><p>",
+        "--": " &emdash ",
+    }
     story_ids = [27]
     connection = new_book.connect_to_db()
     for story_id in story_ids:
