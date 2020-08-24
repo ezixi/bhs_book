@@ -19,7 +19,7 @@ def main():
     for story_id in story_ids:
         data = new_book.get_story(story_id, connection)
         cleaned_story = new_book.clean_story(data[1], replacement_rules)
-        new_book.write_html(data[0], cleaned_story)
+        new_book.write_html(data[0], cleaned_story, story_ids.index(story_id))
     connection.close()
     return
 
