@@ -18,10 +18,14 @@ def main():
     connection = new_book.connect_to_db()
     paths = []
     for story_id in story_ids:
-        data = new_book.get_story(story_id, connection)
-        cleaned_story = new_book.clean_story(data[1], replacement_rules)
+        story = new_book.get_story(story_id, connection)
+        story_title = story[0]
+        story_body = story[1]
+        cleaned_story = new_book.clean_story(story_body, replacement_rules)
         paths.append(
-            new_book.write_html(data[0], cleaned_story, story_ids.index(story_id))
+            new_book.write_html(
+                story_title, cleaned_story, story_ids.index(story_id)
+            )
         )
     connection.close()
     new_book.collate_chapters(paths)

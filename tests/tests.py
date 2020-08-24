@@ -3,7 +3,7 @@ import psycopg2
 import html5lib
 import local_settings
 
-from bhs_book import BhsBook
+from bhs_book.book import BhsBook
 
 
 class BookTest(unittest.TestCase):
