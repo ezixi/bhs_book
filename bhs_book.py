@@ -31,8 +31,8 @@ class BhsBook(epub.EpubBook):
 
     def clean_story(self, story, replacement_rules):
         for error, replacement in replacement_rules.items():
-            cleaned_story = re.sub(error, replacement, story)
-        return cleaned_story
+            story = re.sub(error, replacement, story)
+        return story
 
     def write_html(self, title, story):
         path = f"/tmp/{title}.html"

@@ -9,10 +9,12 @@ def main():
     )
 
     replacement_rules = {
-        r"\<\!\-*\w*\-*\>|\\\\r\\\\n": "</p><p>",
-        "--": " &emdash ",
+        r"<\!\-*\w*\-*\>": "",
+        r"--": " — ",
+        r"(?:\\+\w)+": "</p><p>",
+        r"\\": "",
     }
-    story_ids = [27]
+    story_ids = [27, 45]
     connection = new_book.connect_to_db()
     for story_id in story_ids:
         data = new_book.get_story(story_id, connection)
