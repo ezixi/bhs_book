@@ -4,6 +4,7 @@ import html5lib
 import local_settings
 
 from bhs_book.book import BhsBook
+from bhs_book.story import BhsStory
 
 
 class BookTest(unittest.TestCase):
