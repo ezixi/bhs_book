@@ -20,15 +20,12 @@ def main():
     book_folder = book.create_folder()
     for story_id in story_ids:
         story = BhsStory(story_id, replacement_rules)
-        content = story.get_story(story_id, connection)
-        story_title = content[0]
-        story_body = story.clean_story(content[1])
-        story.write_html(
-            book_folder, story_title, story_body, story_ids.index(story_id)
-        )
+        story.get_story(connection)
+        story.clean_story()
+        story.write_html(book_folder, story_ids.index(story_id))
 
     connection.close()
-    # book.collate_chapters(paths)
+
     return
 
 

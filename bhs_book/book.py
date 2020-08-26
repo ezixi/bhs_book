@@ -1,7 +1,7 @@
 from ebooklib import epub
 import psycopg2
 import re
-import distutils.dir_util
+from pathlib import Path
 import local_settings
 
 
@@ -20,7 +20,11 @@ class BhsBook(epub.EpubBook):
 
     def create_folder(self):
         folder_name = self.title.replace(" ", "-")
-        path = distutils.dir_util.mkpath(f"/tmp/{folder_name}")
+        path = f"/tmp/{folder_name}"
+        try:
+            Path(path).mkdir()
+        except FileExistsError:
+            pass
         return path
 
     def connect_to_db(self):

@@ -20,9 +20,7 @@ class StoryTest(unittest.TestCase):
             f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
         )
         self.sample_story = story.get_story(self.conn)
-        self.sample_html = story.write_html(
-            "/tmp", self.sample_story[0], self.sample_story[1], 1
-        )
+        self.sample_html = story.write_html("/tmp", 1)
 
     def test_story_has_a_title_and_body(self):
         self.assertTrue(len(self.sample_story) == 2)
