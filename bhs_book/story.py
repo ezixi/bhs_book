@@ -41,4 +41,5 @@ class BhsStory(epub.EpubHtml):
                     </html>
             """
             f.write(body)
-        return filepath
+            self.filepath = filepath
+        return self.filepath

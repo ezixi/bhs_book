@@ -1,6 +1,7 @@
 import unittest
 import psycopg2
 import html5lib
+from pathlib import Path
 import local_settings
 
 from bhs_book.story import BhsStory
@@ -28,6 +29,9 @@ class StoryTest(unittest.TestCase):
         html5parser = html5lib.HTMLParser(strict=True)
         with open(self.sample_html, "r") as html_file:
             self.assertTrue(html5parser.parse(html_file))
+
+    def tearDown(self):
+        Path(self.story.filepath).unlink()
 
 
 if __name__ == "__main__":
