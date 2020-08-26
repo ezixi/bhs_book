@@ -8,8 +8,7 @@ class BhsStory:
         self.story_id = story_id
         self.replacement_rules = replacement_rules
 
-    def get_story(self):
-        connection = self.connect_to_db()
+    def get_story(self, connection):
         cur = connection.cursor()
         cur.execute(
             f"""

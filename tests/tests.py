@@ -7,14 +7,21 @@ from bhs_book.book import BhsBook
 from bhs_book.story import BhsStory
 
 
-class BookTest(unittest.TestCase):
+class StoryTest(unittest.TestCase):
     def setUp(self):
+        self.replacement_rules = {
+            r"<\!\-*\w*\-*\>": "",
+            r"--": " — ",
+            r"(?:\\+\w)+": "</p><p>",
+            r"\\": "",
+        }
+        story = BhsStory(27, self.replacement_rules)
         self.conn = psycopg2.connect(
             f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
         )
-        self.sample_story = BhsBook.get_story(self, 27, self.conn)
-        self.sample_html = BhsBook.write_html(
-            self, self.sample_story[0], self.sample_story[1]
+        self.sample_story = story.get_story(self.conn)
+        self.sample_html = story.write_html(
+            "/tmp", self.sample_story[0], self.sample_story[1], 1
         )
 
     def test_story_has_a_title_and_body(self):
