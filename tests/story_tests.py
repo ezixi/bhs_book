@@ -3,7 +3,6 @@ import psycopg2
 import html5lib
 import local_settings
 
-from bhs_book.book import BhsBook
 from bhs_book.story import BhsStory
 
 
@@ -15,12 +14,12 @@ class StoryTest(unittest.TestCase):
             r"(?:\\+\w)+": "</p><p>",
             r"\\": "",
         }
-        story = BhsStory(27, self.replacement_rules)
+        self.story = BhsStory(27, self.replacement_rules)
         self.conn = psycopg2.connect(
             f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
         )
-        self.sample_story = story.get_story(self.conn)
-        self.sample_html = story.write_html("/tmp", 1)
+        self.sample_story = self.story.get_story(self.conn)
+        self.sample_html = self.story.write_html("/tmp", 1)
 
     def test_story_has_a_title_and_body(self):
         self.assertTrue(len(self.sample_story) == 2)
