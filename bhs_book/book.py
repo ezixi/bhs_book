@@ -20,22 +20,11 @@ class BhsBook(epub.EpubBook):
 
     def create_folder(self):
         folder_name = self.title.replace(" ", "-")
-        distutils.dir_util.mkpath(f"/tmp/{folder_name}")
-        return folder_name
-
-    def write_html(self, story_name, story, chapter):
-        folder_path = self.create_folder()
-        path = f"/tmp/{folder_path}/{story_name}-{chapter}.html"
-        with open(path, "w") as f:
-            body = f"""
-                <!doctype html>
-                        <html lang="en">
-                        <head></head>
-                        <body>
-                            <h1>{story_name}</h1>
-                            <p>{story}</p>
-                        </body>
-                    </html>
-            """
-            f.write(body)
+        path = distutils.dir_util.mkpath(f"/tmp/{folder_name}")
         return path
+
+    def connect_to_db(self):
+        conn = psycopg2.connect(
+            f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
+        )
+        return conn

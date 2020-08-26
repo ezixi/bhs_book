@@ -1,22 +1,12 @@
 from ebooklib import epub
 import psycopg2
 import re
-import distutils.dir_util
-import local_settings
 
 
 class BhsStory:
-    def __init__(self, story_id, title, body, replacement_rules):
+    def __init__(self, story_id, replacement_rules):
         self.story_id = story_id
-        self.title = title
-        self.body = body
         self.replacement_rules = replacement_rules
-
-    def connect_to_db(self):
-        conn = psycopg2.connect(
-            f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
-        )
-        return conn
 
     def get_story(self):
         connection = self.connect_to_db()
@@ -30,7 +20,23 @@ class BhsStory:
         cur.close()
         return data
 
-    def clean_story(self):
+    def clean_story(self, story):
         for error, replacement in self.replacement_rules.items():
             self.story = re.sub(error, replacement, self.story)
         return self.story
+
+    def write_html(self, path, title, story, chapter):
+        filename = f"{path}/{title}-{chapter}.html"
+        with open(filename, "w") as f:
+            body = f"""
+                <!doctype html>
+                        <html lang="en">
+                        <head></head>
+                        <body>
+                            <h1>{title}</h1>
+                            <p>{story}</p>
+                        </body>
+                    </html>
+            """
+            f.write(body)
+        return filename
