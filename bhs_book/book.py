@@ -17,6 +17,8 @@ class BhsBook(epub.EpubBook):
         self.author = author
         self.identifier = identifier
         self.language = language
+        self.path = self.create_folder()
+        self.connection = self.connect_to_db()
 
     def create_folder(self):
         folder_name = self.title.replace(" ", "-")

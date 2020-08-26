@@ -16,15 +16,13 @@ def main():
         r"\\": "",
     }
     story_ids = [27, 45]
-    connection = book.connect_to_db()
-    book_folder = book.create_folder()
     for story_id in story_ids:
         story = BhsStory(story_id, replacement_rules)
-        story.get_story(connection)
+        story.get_story(book.connection)
         story.clean_story()
-        story.write_html(book_folder, story_ids.index(story_id))
+        story.write_html(book.path, story_ids.index(story_id))
 
-    connection.close()
+    book.connection.close()
 
     return
 
