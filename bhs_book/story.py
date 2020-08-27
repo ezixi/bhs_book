@@ -3,7 +3,7 @@ import psycopg2
 import re
 
 
-class BhsStory(epub.EpubHtml):
+class BhsStory:
     def __init__(self, story_id, replacement_rules):
         self.story_id = story_id
         self.replacement_rules = replacement_rules
@@ -43,7 +43,7 @@ class BhsStory(epub.EpubHtml):
     def create_chapter(self, order):
         filename = self.title.replace(" ", "-")
         filepath = f"{filename}-{order}.html"
-        self.chapter = epub.EpubHtml(
-            title=self.title, file_name=filepath, lang="en"
-        )
-        return
+        chapter = epub.EpubHtml(title=self.title, file_name=filepath, lang="en")
+        chapter.set_content(self.html)
+        self.chapter = chapter
+        return chapter

@@ -7,11 +7,11 @@ import local_settings
 
 class BhsBook(epub.EpubBook):
     def __init__(self, identifier, title, author, language="en"):
-        book = epub.EpubBook()
-        book.set_identifier(identifier)
-        book.set_title(title)
-        book.set_language(language)
-        book.add_author(author)
+        epub.EpubBook.__init__(self)
+        self.set_identifier(identifier)
+        self.set_title(title)
+        self.set_language(language)
+        self.add_author(author)
 
         self.title = title
         self.author = author
