@@ -20,18 +20,14 @@ class StoryTest(unittest.TestCase):
             f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
         )
         self.sample_story = self.story.get_story(self.conn)
-        self.sample_html = self.story.write_html("/tmp", 1)
+        self.sample_html = self.story.write_html()
 
     def test_story_has_a_title_and_body(self):
         self.assertTrue(len(self.sample_story) == 2)
 
     def test_copy_is_valid_html(self):
         html5parser = html5lib.HTMLParser(strict=True)
-        with open(self.sample_html, "r") as html_file:
-            self.assertTrue(html5parser.parse(html_file))
-
-    def tearDown(self):
-        Path(self.story.filepath).unlink()
+        self.assertTrue(html5parser.parse(self.sample_html))
 
 
 if __name__ == "__main__":

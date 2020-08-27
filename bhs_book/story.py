@@ -26,20 +26,24 @@ class BhsStory(epub.EpubHtml):
             self.story = re.sub(error, replacement, self.story)
         return self.story
 
-    def write_html(self, path, chapter):
+    def write_html(self):
+        html = f"""
+            <!doctype html>
+                    <html lang="en">
+                    <head></head>
+                    <body>
+                        <h1>{self.title}</h1>
+                        <p>{self.story}</p>
+                    </body>
+                </html>
+        """
+        self.html = html
+        return html
+
+    def create_chapter(self, order):
         filename = self.title.replace(" ", "-")
-        filepath = f"{path}/{filename}-{chapter}.html"
-        with open(filepath, "w") as f:
-            body = f"""
-                <!doctype html>
-                        <html lang="en">
-                        <head></head>
-                        <body>
-                            <h1>{self.title}</h1>
-                            <p>{self.story}</p>
-                        </body>
-                    </html>
-            """
-            f.write(body)
-            self.filepath = filepath
-        return self.filepath
+        filepath = f"{filename}-{order}.html"
+        self.chapter = epub.EpubHtml(
+            title=self.title, file_name=filepath, lang="en"
+        )
+        return

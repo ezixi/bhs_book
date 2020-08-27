@@ -20,8 +20,8 @@ def main():
         story = BhsStory(story_id, replacement_rules)
         story.get_story(book.connection)
         story.clean_story()
-        story.write_html(book.path, story_ids.index(story_id))
-
+        story.write_html()
+    # chapter = story.create_chapter(story_ids.index(story_id))
     book.connection.close()
 
     return
