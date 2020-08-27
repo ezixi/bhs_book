@@ -43,7 +43,7 @@ class BhsStory:
     def create_chapter(self, order):
         filename = self.title.replace(" ", "-")
         filepath = f"{filename}-{order}.xhtml"
-        chapter = epub.EpubHtml(title=self.title, file_name=filepath, lang="en")
-        chapter.set_content(f"{self.html}")
-        self.chapter = chapter
+        chapter = epub.EpubHtml(
+            title=self.title, file_name=filepath, lang="en", content=self.html
+        )
         return chapter
