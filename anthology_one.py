@@ -24,7 +24,7 @@ def main():
         chapter = story.create_chapter(story_ids.index(story_id))
         book.add_item(chapter)
     book.connection.close()
-
+    book.write_book()
     return
 
 

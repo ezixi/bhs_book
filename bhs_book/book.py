@@ -22,7 +22,7 @@ class BhsBook(epub.EpubBook):
 
     def create_folder(self):
         folder_name = self.title.replace(" ", "-")
-        path = f"/tmp/{folder_name}"
+        path = f"/Users/martinbell/Desktop/{folder_name}"
         try:
             Path(path).mkdir()
         except FileExistsError:
@@ -34,3 +34,9 @@ class BhsBook(epub.EpubBook):
             f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
         )
         return conn
+
+    def write_book(self):
+        self.add_item(epub.EpubNcx())
+        self.add_item(epub.EpubNav())
+        epub.write_epub(self.path, self)
+        return
