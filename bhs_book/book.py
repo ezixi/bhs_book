@@ -7,7 +7,7 @@ import local_settings
 
 class BhsBook(epub.EpubBook):
     def __init__(self, identifier, title, author, language="en"):
-        epub.EpubBook.__init__(self)
+        super().__init__()
         self.set_identifier(identifier)
         self.set_title(title)
         self.set_language(language)
@@ -38,5 +38,5 @@ class BhsBook(epub.EpubBook):
     def write_book(self):
         self.add_item(epub.EpubNcx())
         self.add_item(epub.EpubNav())
-        epub.write_epub(self.path, self)
+        epub.write_epub(f"{self.path}/{self.title}.epub", self)
         return

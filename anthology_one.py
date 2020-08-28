@@ -1,3 +1,4 @@
+from ebooklib import epub
 from bhs_book.book import BhsBook
 from bhs_book.story import BhsStory
 
@@ -23,6 +24,7 @@ def main():
         story.write_html()
         chapter = story.create_chapter(story_ids.index(story_id))
         book.add_item(chapter)
+        book.spine.append(chapter)
     book.connection.close()
     book.write_book()
     return
