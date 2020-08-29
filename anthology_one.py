@@ -6,9 +6,30 @@ from bhs_book.story import BhsStory
 def main():
     book = BhsBook(
         identifier="backhandstories.com-one",
-        title="Backhand Stories: Anthology One",
+        title="Anthology One",
         author="Martin Bell",
         style_sheet="""
+            @namespace epub "http://www.idpf.org/2007/ops";
+            body {
+                font-family: Roboto, Arial, Georgia, Times, Times New Roman, serif;
+            }
+            h1 {
+                 text-align: left;
+                 text-transform: uppercase;
+                 font-weight: 200;
+            }
+            ol {
+                    list-style-type: none;
+            }
+            ol > li:first-child {
+                    margin-top: 0.3em;
+            }
+            nav[epub|type~='toc'] > ol > li > ol  {
+                list-style-type:square;
+            }
+            nav[epub|type~='toc'] > ol > li > ol > li {
+                    margin-top: 0.3em;
+            }
         """,
     )
 
