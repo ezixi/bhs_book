@@ -31,9 +31,7 @@ class BhsBook(epub.EpubBook):
         return path
 
     def connect_to_db(self):
-        conn = psycopg2.connect(
-            f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
-        )
+        conn = psycopg2.connect(f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}")
         return conn
 
     def add_chapter(self, chapter):
@@ -42,7 +40,14 @@ class BhsBook(epub.EpubBook):
         self.spine.append(chapter)
         return
 
+    def write_styles(self):
+        css = epub.EpubItem(
+            uid="style_nav", file_name="style/nav.css", media_type="text/css", content=self.style_sheet
+        )
+        return css
+
     def write_book(self):
+        self.add_item(self.write_styles())
         self.add_item(epub.EpubNcx())
         self.add_item(epub.EpubNav())
         epub.write_epub(f"{self.path}/{self.title}.epub", self)
