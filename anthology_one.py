@@ -11,7 +11,8 @@ def main():
         style_sheet="""
             @namespace epub "http://www.idpf.org/2007/ops";
             body {
-                font-family: Roboto, Arial, Georgia, Times, Times New Roman, serif;
+                font-family: Cambria, Liberation Serif, Bitstream Vera Serif,\
+                 Georgia, Times, Times New Roman, serif;
             }
             h1 {
                  text-align: left;
@@ -33,12 +34,7 @@ def main():
         """,
     )
 
-    replacement_rules = {
-        r"<\!\-*\w*\-*\>": "",
-        r"--": " — ",
-        r"(?:\\+\w)+": "</p><p>",
-        r"\\": "",
-    }
+    replacement_rules = {r"<\!\-*\w*\-*\>": "", r"--": " — ", r"(?:\\+\w)+": "</p><p>", r"\\": ""}
 
     story_ids = [9, 271]
     for story_id in story_ids:
