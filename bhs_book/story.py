@@ -4,12 +4,16 @@ import re
 
 
 class BhsStory:
-    def __init__(self, story_id, replacement_rules):
+    def __init__(self, story_id, replacement_rules, connection):
         self.story_id = story_id
         self.replacement_rules = replacement_rules
+        self.connection = connection
+        self.title, self.story = self.get_story()
+        self.story = self.clean_story()
+        self.html = self.write_html()
 
-    def get_story(self, connection):
-        cur = connection.cursor()
+    def get_story(self):
+        cur = self.connection.cursor()
         cur.execute(
             f"""
             SELECT post_title, post_content from wp_posts where "ID" = {self.story_id};
@@ -17,9 +21,7 @@ class BhsStory:
         )
         data = cur.fetchall()[0]
         cur.close()
-        self.title = data[0]
-        self.story = data[1]
-        return self.title, self.story
+        return data[0], data[1]
 
     def clean_story(self):
         for error, replacement in self.replacement_rules.items():
@@ -37,7 +39,6 @@ class BhsStory:
                     </body>
                 </html>
         """
-        self.html = html
         return html
 
     def create_chapter(self, order):

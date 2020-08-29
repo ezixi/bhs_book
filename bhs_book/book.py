@@ -6,7 +6,7 @@ import local_settings
 
 
 class BhsBook(epub.EpubBook):
-    def __init__(self, identifier, title, author, language="en"):
+    def __init__(self, identifier, title, author, style_sheet, language="en"):
         super().__init__()
         self.set_identifier(identifier)
         self.set_title(title)
@@ -16,6 +16,7 @@ class BhsBook(epub.EpubBook):
         self.title = title
         self.author = author
         self.identifier = identifier
+        self.style_sheet = style_sheet
         self.language = language
         self.path = self.create_folder()
         self.connection = self.connect_to_db()
@@ -34,6 +35,12 @@ class BhsBook(epub.EpubBook):
             f"dbname={local_settings.LOCALDB} user={local_settings.LOCALUSER}"
         )
         return conn
+
+    def add_chapter(self, chapter):
+        self.add_item(chapter)
+        self.toc.append(chapter)
+        self.spine.append(chapter)
+        return
 
     def write_book(self):
         self.add_item(epub.EpubNcx())

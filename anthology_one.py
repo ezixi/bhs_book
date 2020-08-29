@@ -8,6 +8,8 @@ def main():
         identifier="backhandstories.com-one",
         title="Backhand Stories: Anthology One",
         author="Martin Bell",
+        style_sheet="""
+        """,
     )
 
     replacement_rules = {
@@ -16,15 +18,12 @@ def main():
         r"(?:\\+\w)+": "</p><p>",
         r"\\": "",
     }
-    story_ids = [27, 45]
+
+    story_ids = [9, 271]
     for story_id in story_ids:
-        story = BhsStory(story_id, replacement_rules)
-        story.get_story(book.connection)
-        story.clean_story()
-        story.write_html()
+        story = BhsStory(story_id, replacement_rules, book.connection)
         chapter = story.create_chapter(story_ids.index(story_id))
-        book.add_item(chapter)
-        book.spine.append(chapter)
+        book.add_chapter(chapter)
     book.connection.close()
     book.write_book()
     return
