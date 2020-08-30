@@ -19,6 +19,7 @@ class BhsBook(epub.EpubBook):
         self.style_sheet = style_sheet
         self.language = language
         self.path = self.create_folder()
+        self.set_cover("image.jpg", open(f"{self.path}/cover.jpg", "rb").read())
         self.connection = self.connect_to_db()
 
     def create_folder(self):

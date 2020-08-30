@@ -11,8 +11,7 @@ def main():
         style_sheet="""
             @namespace epub "http://www.idpf.org/2007/ops";
             body {
-                font-family: Cambria, Liberation Serif, Bitstream Vera Serif,\
-                 Georgia, Times, Times New Roman, serif;
+                font-family: "Adobe Caslon", Georgia, "Times New Roman", Times, serif;
             }
             h1 {
                  text-align: left;
