@@ -21,6 +21,8 @@ class BhsBook(epub.EpubBook):
         self.path = self.create_folder()
         self.set_cover("image.jpg", open(f"{self.path}/cover.jpg", "rb").read())
         self.connection = self.connect_to_db()
+        self.spine = ["cover", "nav"]
+        self.toc = ["cover", "nav"]
 
     def create_folder(self):
         folder_name = self.title.replace(" ", "-")
