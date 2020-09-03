@@ -47,5 +47,4 @@ class BhsStory:
         filepath = f"{filename}-{order}.xhtml"
         chapter = epub.EpubHtml(title=self.title, file_name=filepath, lang="en")
         chapter.content = self.html
-        chapter.content += create_pagebreak("blah")
         return chapter
