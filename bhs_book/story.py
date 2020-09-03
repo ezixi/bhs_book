@@ -1,4 +1,5 @@
 from ebooklib import epub
+from ebooklib.utils import create_pagebreak
 import psycopg2
 import re
 
@@ -46,4 +47,5 @@ class BhsStory:
         filepath = f"{filename}-{order}.xhtml"
         chapter = epub.EpubHtml(title=self.title, file_name=filepath, lang="en")
         chapter.content = self.html
+        chapter.content += create_pagebreak("blah")
         return chapter

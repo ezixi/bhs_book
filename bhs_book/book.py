@@ -8,11 +8,6 @@ import local_settings
 class BhsBook(epub.EpubBook):
     def __init__(self, identifier, title, author, style_sheet, language="en"):
         super().__init__()
-        self.set_identifier(identifier)
-        self.set_title(title)
-        self.set_language(language)
-        self.add_author(author)
-
         self.title = title
         self.author = author
         self.identifier = identifier
@@ -21,8 +16,14 @@ class BhsBook(epub.EpubBook):
         self.path = self.create_folder()
         self.set_cover("image.jpg", open(f"{self.path}/cover.jpg", "rb").read())
         self.connection = self.connect_to_db()
-        self.spine = ["cover", "nav"]
-        self.toc = ["cover", "nav"]
+        self.spine = ["cover"]
+        self.toc = ["cover"]
+
+        self.set_identifier(self.identifier)
+        self.set_title(self.title)
+        self.set_language(self.language)
+        self.add_author(self.author)
+        self.write_styles()
 
     def create_folder(self):
         folder_name = self.title.replace(" ", "-")
@@ -51,6 +52,8 @@ class BhsBook(epub.EpubBook):
 
     def write_book(self):
         self.add_item(self.write_styles())
+        self.toc.append("nav")
+        self.spine.append("nav")
         self.add_item(epub.EpubNcx())
         self.add_item(epub.EpubNav())
         epub.write_epub(f"{self.path}/{self.title}.epub", self)
