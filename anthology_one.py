@@ -11,6 +11,7 @@ book = BhsBook(
             @namespace epub "http://www.idpf.org/2007/ops";
             body {
                 font-family: "Adobe Caslon", Georgia, "Times New Roman", Times, serif;
+                text-align: justify;
             }
             h1 {
                  text-align: left;
@@ -42,9 +43,9 @@ story_ids = [793, 794, 214, 734, 24, 508, 559, 484, 535, 275, 23, 491, 9]
 replacement_rules = {
     r"<\!\-*\w*\-*\>": "",
     r"--": " — ",
-    r"(?:\\+\w)+": "</p><p>",
+    r"(?:\\+\w)+": "</p>\n<p>",
     r"\\": "",
-    r"###": "</br>",
+    r"#+": "</br>",
 }
 
 

@@ -46,7 +46,10 @@ class BhsBook(epub.EpubBook):
 
     def write_styles(self):
         css = epub.EpubItem(
-            uid="style_nav", file_name="style/nav.css", media_type="text/css", content=self.style_sheet
+            uid="style_default",
+            file_name="style/default.css",
+            media_type="text/css",
+            content=self.style_sheet,
         )
         return css
 
