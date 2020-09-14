@@ -55,8 +55,6 @@ class BhsBook(epub.EpubBook):
 
     def write_book(self):
         self.add_item(self.write_styles())
-        self.toc.append("nav")
-        self.spine.append("nav")
         self.add_item(epub.EpubNcx())
         self.add_item(epub.EpubNav())
         epub.write_epub(f"{self.path}/{self.title}.epub", self)

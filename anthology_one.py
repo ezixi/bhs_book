@@ -37,7 +37,7 @@ book = BhsBook(
         """,
 )
 
-story_ids = [793, 794, 214, 734, 24, 508, 559, 484, 535, 275, 23, 491, 9]
+story_ids = [794, 793, 795, 214, 734, 610, 510, 24, 508, 27, 559, 484, 527, 254, 535, 275, 23, 491, 9, 796]
 
 
 replacement_rules = {
@@ -55,10 +55,15 @@ replacement_rules = {
 
 
 def add_stories(story_ids):
+    counter = 0
     for story_id in story_ids:
         story = BhsStory(story_id, replacement_rules, book.connection)
         chapter = story.create_chapter(story_ids.index(story_id))
         book.add_chapter(chapter)
+        if counter == 0:
+            book.toc.append("nav")
+            book.spine.append("nav")
+            counter = 1
     book.connection.close()
     return
 
