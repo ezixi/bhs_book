@@ -99,3 +99,7 @@ ve/
 
 # node for linters
 node_modules/
+
+# data
+source_data/
+
